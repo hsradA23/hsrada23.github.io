@@ -1,23 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import {useState, useRef} from 'react';
+import useInterval from "use-interval";
+import useScrollSnap from 'react-use-scroll-snap';
+
+import Fpage from './components/frontpage'
 
 function App() {
+  const [display, setDisplay] = useState(false);
+
+  const scrollRef = useRef(null);
+  useScrollSnap({ ref: scrollRef, duration: 10, delay: 100 });
+
+  useInterval( () => { setDisplay(!display);} ,500);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App" ref={scrollRef}>
+
+    <div className='section1'>
+      <Fpage display={display}/>
+    </div>
+
+    <div className='section2'>
+    </div>
+
+    <div className='section3'>
+    </div>
+
     </div>
   );
 }
